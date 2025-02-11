@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Menu, Booking
@@ -10,6 +11,7 @@ def index(request):
     return render(request, 'index.html', {})
 
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def MenuItemsView (request):
     if request.method == 'GET':
         menu_items = Menu.objects.all()
@@ -23,6 +25,7 @@ def MenuItemsView (request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def SingleMenuItemView (request, pk):
     try:
         menu_item = Menu.objects.get(pk=pk)
@@ -45,6 +48,7 @@ def SingleMenuItemView (request, pk):
 
 
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def BookingViewSet(request):
     if request.method == 'GET':
         # List all bookings
@@ -61,6 +65,7 @@ def BookingViewSet(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def booking_detail(request, pk):
     try:
         # Retrieve the booking by primary key
