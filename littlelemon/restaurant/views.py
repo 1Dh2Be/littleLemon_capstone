@@ -11,7 +11,6 @@ def index(request):
     return render(request, 'index.html', {})
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
 def MenuItemsView (request):
     if request.method == 'GET':
         menu_items = Menu.objects.all()

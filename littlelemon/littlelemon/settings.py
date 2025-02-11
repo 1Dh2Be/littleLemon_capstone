@@ -113,14 +113,13 @@ AUTH_PASSWORD_VALIDATORS = [
 DJOSER={"USER_ID_FIELD":"username"}
 
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
 }
-
 
 
 # Internationalization
